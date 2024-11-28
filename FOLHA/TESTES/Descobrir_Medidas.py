@@ -17,7 +17,7 @@ else:
         pagina = pdf.load_page(0)
         texto_blocos = pagina.get_text("blocks")  # Obtém o texto dividido em blocos
 
-        texto_procurado = "AZEVEDO, FRAGA, MATOS & MEYER SOCIEDADE DE ADVOGAD"  # Substituir pelo texto que você está procurando
+        texto_procurado = "1.092,28"  # Substituir pelo texto que você está procurando
 
         print(f'texto_blocos: {texto_blocos}')
         # Itera sobre todos os blocos de texto
@@ -30,7 +30,7 @@ else:
             if re.search(texto_procurado, conteudo):
                 print(f"Texto encontrado no bloco {indice}:")
                 print(f"Conteúdo: {conteudo}")
-                print(f"Coordenadas: ({x0}, {y0}, {x1}, {y1})")
+                print(f"Coordenadas: ({round(x0, 2)}, {round(y0, 2)}, {round(x1, 2)}, {round(y1, 2)})")
                 break
         else:
             print("Texto não encontrado no documento.")

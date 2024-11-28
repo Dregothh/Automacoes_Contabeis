@@ -50,7 +50,7 @@ def processar_pdf(arquivo_pdf):
             nome_empresa = extrair_texto_bloco(pagina, 2)
             if nome_empresa:
                 nome_empresa = nome_empresa.split("\n")[-1]  # Manter apenas o texto após a "/n"
-            sufixo = "(GUIA)"
+            sufixo = "(INSS)"
         else:
             print(f"Nome do arquivo '{nome_arquivo}' não corresponde aos padrões especificados.")
             return

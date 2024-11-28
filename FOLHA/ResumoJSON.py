@@ -13,12 +13,16 @@ def mm_to_points(mm):
 
 def obter_arquivo_pdf():
     Tk().withdraw()  # Oculta a janela principal do tkinter
-    return askopenfilename(filetypes=[("Arquivos PDF", "*.pdf")], title="Selecione os arquivos PDF")
+    return askopenfilename(
+        filetypes=[("Arquivos PDF", "*.pdf")],
+        title="Arquivo do RESUMO",
+        initialdir="C:/A"
+    )
 
 def inicializar_dados_empresa(empresa_id, nome_empresa, cnpjcpf):
     return {
         'empresa_id': empresa_id,
-        'cnpjcpf': cnpjcpf,
+        'identificação': cnpjcpf,
         'fgts_total': 0.0,
         'inss_total': 0.0
     }
@@ -148,13 +152,14 @@ def salvar_dados_json(dados, nome_arquivo=f"JSON/{datetime.now().strftime('%d%m%
     with open(nome_arquivo, "w", encoding="utf-8") as json_file:
         json_file.write(json_dados)
 
-def exec():
+def execJSON():
     arquivo_pdf = obter_arquivo_pdf()
     if arquivo_pdf:
         dados_gerais = processar_pdf(arquivo_pdf)
         salvar_dados_json(dados_gerais)
     else:
         print("Nenhum arquivo selecionado.")
+    return dados_gerais
 
 # Executa o script principal
 if __name__ ==  "__main__":
