@@ -22,6 +22,7 @@ def searchText(file, search):
     # Se não encontrar o texto em nenhuma página
     return False
 
+
 def locate(coord, page):
     clip_rect = fitz.Rect(coord)
     texto_encontrado = page.get_text("text", clip=clip_rect)
@@ -30,6 +31,7 @@ def locate(coord, page):
     else:
         return None
 
+
 def getINSS(file):
     with fitz.open(file) as pdf:
         page = pdf.load_page(0)
@@ -37,7 +39,8 @@ def getINSS(file):
         coord_valor = (450.0, 201.0, 556.0, 217.0)
         coord_nome = (150, 132.53, 502.14, 144.82)
 
-        return locate(coord_nome, page).strip(), float(locate(coord_valor, page).replace('.', '').replace(',', '.').strip())
+        return locate(coord_nome, page).strip(), float(
+            locate(coord_valor, page).replace('.', '').replace(',', '.').strip())
 
 
 def getFGTS(file):
@@ -47,7 +50,9 @@ def getFGTS(file):
         coord_valor = (425.18, 202.42, 570.02, 224.57)
         coord_nome = (155.0, 120.0, 590.00, 132.92)
 
-        return locate(coord_nome, page).strip(), float(locate(coord_valor, page).replace('.', '').replace(',', '.').strip())
+        return locate(coord_nome, page).strip(), float(
+            locate(coord_valor, page).replace('.', '').replace(',', '.').strip())
+
 
 def find_best_match(input_text, possible_texts):
     input_text = input_text.casefold()
@@ -57,6 +62,7 @@ def find_best_match(input_text, possible_texts):
         # Retorna o nome original correspondente ao match
         return possible_texts[possible_texts_normalized.index(matches[0])]
     return None
+
 
 def execCheck():
     def initResponse(nomeEmpresa, inss_dominio, fgts_dominio):
@@ -89,7 +95,6 @@ def execCheck():
             }
         }
 
-
     Tk().withdraw()  # Oculta a janela principal do tkinter
     files = askopenfilenames(
         filetypes=[("Arquivos PDF", "*.pdf")],
@@ -119,7 +124,7 @@ def execCheck():
             # print(f'nome: {nomeGuia}, \nmatch: {empresa}\n')
             inss_dominio = JSON[empresa]['inss_total']
             fgts_dominio = JSON[empresa]['fgts_total']
-            
+
             if empresa not in CheckJSON:
                 CheckJSON[empresa] = initResponse(empresa, inss_dominio, fgts_dominio)
 
@@ -137,7 +142,6 @@ def execCheck():
                 CheckJSON[empresa]['fgts']['guiaCorreta'] = guiaCorreta
                 CheckJSON[empresa]['fgts']['valorGuia'] += valorGuia
                 CheckJSON[empresa]['fgts']['valorDiff'] += valorDiff
-
 
     for empresa in CheckJSON:
         inss_dominio = JSON[empresa]['inss_total']
@@ -166,13 +170,16 @@ def execCheck():
             CheckJSON[empresa]['correto'] = True
 
     print(f"\n---------------------------------------\n")
+    # print(f"\n{CheckJSON}")
 
-    for empresa in CheckJSON:
+    for idx, empresa in enumerate(CheckJSON):
         if CheckJSON[empresa]['correto'] == False:
             print(empresa)
             print(json.dumps(CheckJSON[empresa], indent=4, ensure_ascii=False))
+        else:
+            print(f"CORRETO - {list(CheckJSON.keys())[idx]}")
 
-    CheckJSON = json.dumps(CheckJSON, indent=4, ensure_ascii=False)
+    # CheckJSON = json.dumps(CheckJSON, indent=4, ensure_ascii=False)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ import os
 import re
 from tkinter import Tk
 from tkinter.filedialog import askopenfilenames
+from Conferencia import searchText, getFGTS, getINSS
 
 # Função para converter milímetros para pontos (PyMuPDF usa pontos)
 def mm_pontos(milimetros):
@@ -36,23 +37,25 @@ def renomear_arquivo(caminho_arquivo, nome_empresa, sufixo=""):
 def processar_pdf(arquivo_pdf):
     nome_arquivo = os.path.basename(arquivo_pdf)
 
-    with fitz.open(arquivo_pdf) as pdf:
+    with (fitz.open(arquivo_pdf) as pdf):
         pagina = pdf.load_page(0)  # Considera que o nome da empresa está na primeira página
 
         # Verifica o padrão do nome do arquivo e aplica a extração apropriada
-        sufixo = ""
-        if re.match(r'^\d+-Recibo de Pagamento.*\.pdf$', nome_arquivo):
+        if searchText(arquivo_pdf, "FOLHA MENSAL"): # RECIBO DE SALÁRIO
             # Para "*-Recibo de Pagamento", buscar o nome na região especificada
             nome_empresa = extrair_texto_regiao(pagina, 0, 0, 100, 4.5)
             sufixo = "(RECIBO)"
-        elif re.match(r'^GuiaPagamento_\d+_\d+\.pdf$', nome_arquivo):
-            # Para "GuiaPagamento_*", buscar na linha 2
-            nome_empresa = extrair_texto_bloco(pagina, 2)
+        elif searchText(arquivo_pdf, "Documento de Arrecadação de Receitas Federais"
+        ) or searchText(arquivo_pdf, "Documento de Arrecadação do eSocial"):  # INSS
+            nome_empresa, _ = getINSS(arquivo_pdf)
             if nome_empresa:
-                nome_empresa = nome_empresa.split("\n")[-1]  # Manter apenas o texto após a "/n"
+                nome_empresa = nome_empresa.split("\n")[-1]  # Manter apenas o texto após o "/n"
             sufixo = "(INSS)"
+        elif searchText(arquivo_pdf, "GFD - Guia do FGTS Digital"):
+            nome_empresa, _ = getFGTS(arquivo_pdf)
+            sufixo = "(FGTS)"
         else:
-            print(f"Nome do arquivo '{nome_arquivo}' não corresponde aos padrões especificados.")
+            print(f"Arquivo '{nome_arquivo}' não corresponde aos padrões especificados.")
             return
 
     # Renomear o arquivo se um nome foi encontrado
