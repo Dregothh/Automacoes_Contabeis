@@ -41,10 +41,13 @@ def processar_pdf(arquivo_pdf):
         pagina = pdf.load_page(0)  # Considera que o nome da empresa está na primeira página
 
         # Verifica o padrão do nome do arquivo e aplica a extração apropriada
-        if searchText(arquivo_pdf, "FOLHA MENSAL"): # RECIBO DE SALÁRIO
+        if searchText(arquivo_pdf, "Assinatura do Funcionário"): # RECIBO DE SALÁRIO
             # Para "*-Recibo de Pagamento", buscar o nome na região especificada
             nome_empresa = extrair_texto_regiao(pagina, 0, 0, 100, 4.5)
-            sufixo = "(RECIBO)"
+            if searchText(arquivo_pdf, "13o."):
+                sufixo = "(RECIBO 13o)"
+            else:
+                sufixo = "(RECIBO)"
         elif searchText(arquivo_pdf, "Documento de Arrecadação de Receitas Federais"
         ) or searchText(arquivo_pdf, "Documento de Arrecadação do eSocial"):  # INSS
             nome_empresa, _ = getINSS(arquivo_pdf)
@@ -67,7 +70,11 @@ def processar_pdf(arquivo_pdf):
 if __name__ == "__main__":
     # Configuração do tkinter para escolher arquivos PDF
     Tk().withdraw()  # Oculta a janela principal do tkinter
-    arquivos_pdf = askopenfilenames(filetypes=[("Arquivos PDF", "*.pdf")], title="Selecione os arquivos PDF")
+    arquivos_pdf = askopenfilenames(
+        filetypes=[("Arquivos PDF", "*.pdf")],
+        title="Guias Para Conferência",
+        initialdir="C:/Users/nelso/Downloads"
+    )
 
     # Verifica se algum arquivo foi selecionado
     total_arquivos = len(arquivos_pdf)

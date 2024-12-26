@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOLHA/Conferencia.py" beforeDir="false" afterPath="$PROJECT_DIR$/FOLHA/Conferencia.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOLHA/RenomearArquivos.py" beforeDir="false" afterPath="$PROJECT_DIR$/FOLHA/RenomearArquivos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOLHA/ResumoJSON.py" beforeDir="false" afterPath="$PROJECT_DIR$/FOLHA/ResumoJSON.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOLHA/TESTES/Descobrir_Medidas.py" beforeDir="false" afterPath="$PROJECT_DIR$/FOLHA/TESTES/Descobrir_Medidas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,24 +37,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Conferencia.executor": "Run",
-    "Python.Descobrir_Medidas.executor": "Run",
-    "Python.RenomearArquivos.executor": "Run",
-    "Python.ResumoJSON.executor": "Run",
-    "Python.scratch_5.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Conferencia.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Descobrir_Medidas.executor&quot;: &quot;Run&quot;,
+    &quot;Python.RenomearArquivos.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ResumoJSON.executor&quot;: &quot;Run&quot;,
+    &quot;Python.oficina.executor&quot;: &quot;Run&quot;,
+    &quot;Python.print_text.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_5.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "Python"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Python&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

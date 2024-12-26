@@ -100,6 +100,7 @@ def processar_pdf(arquivo_pdf):
 
             if nome_empresa:
                 texto = pagina.get_text("text")
+                print(texto)
                 linhas = texto.splitlines()
 
                 if debug:
@@ -128,6 +129,7 @@ def processar_pdf(arquivo_pdf):
                     for i in range(1, len(linhas)):
                         if "Total INSS:" in linhas[i] and i > 0:
                             linha_anterior = linhas[i - 1]
+
                             inss_total_match = re.search(r'([\d,.]+)', linha_anterior)
                             if inss_total_match:
                                 try:
@@ -163,4 +165,4 @@ def execJSON():
 
 # Executa o script principal
 if __name__ ==  "__main__":
-    exec()
+    execJSON()

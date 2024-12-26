@@ -17,7 +17,7 @@ else:
         pagina = pdf.load_page(0)
         texto_blocos = pagina.get_text("blocks")  # Obtém o texto dividido em blocos
 
-        texto_procurado = "1.092,28"  # Substituir pelo texto que você está procurando
+        texto_procurado = "24,60"  # Substituir pelo texto que você está procurando
 
         print(f'texto_blocos: {texto_blocos}')
         # Itera sobre todos os blocos de texto
@@ -25,9 +25,11 @@ else:
             # Cada bloco é uma tupla (x0, y0, x1, y1, "conteúdo do texto", bloco_num, linha_num)
             print(f'bloco: {bloco}')
             x0, y0, x1, y1, conteudo, bloco_num, linha_num = bloco
+            conteudo = conteudo.replace('  ', ' ')
+            print(conteudo)
 
             # Procura pelo texto dentro do bloco
-            if re.search(texto_procurado, conteudo):
+            if texto_procurado.casefold() in conteudo.casefold():
                 print(f"Texto encontrado no bloco {indice}:")
                 print(f"Conteúdo: {conteudo}")
                 print(f"Coordenadas: ({round(x0, 2)}, {round(y0, 2)}, {round(x1, 2)}, {round(y1, 2)})")

@@ -10,8 +10,8 @@ from tkinter.filedialog import askopenfilenames
 def searchText(file, search):
     search = search.casefold()
     with fitz.open(file) as pdf:
-        for idx in range(len(pdf)):
-            pagina = pdf.load_page(idx)
+        for page in range(0, len(pdf)):
+            pagina = pdf.load_page(page)
             texto = pagina.get_text("text")
             texto = texto.casefold()
 
@@ -47,10 +47,15 @@ def getFGTS(file):
     with fitz.open(file) as pdf:
         page = pdf.load_page(0)
 
-        coord_valor = (425.18, 202.42, 570.02, 224.57)
-        coord_nome = (155.0, 120.0, 590.00, 132.92)
+        coord_valor = (425.18, 147.42, 570.01, 169.57)
+        coord_nome = (155.0, 108.0, 590.00, 132.92)
 
-        return locate(coord_nome, page).strip(), float(
+        nome = locate(coord_nome, page)
+        nome = nome[nome.find('\n') + 1:]
+        nome = nome[:nome.find('\n')]
+        print(nome)
+
+        return nome, float(
             locate(coord_valor, page).replace('.', '').replace(',', '.').strip())
 
 
@@ -129,14 +134,14 @@ def execCheck():
                 CheckJSON[empresa] = initResponse(empresa, inss_dominio, fgts_dominio)
 
             if inss:
-                valorDiff = abs(inss_dominio - valorGuia)
+                valorDiff = round(abs(inss_dominio - valorGuia), 2)
                 if abs(inss_dominio - valorGuia) <= 0.1:
                     guiaCorreta = True
                 CheckJSON[empresa]['inss']['guiaCorreta'] = guiaCorreta
                 CheckJSON[empresa]['inss']['valorGuia'] += valorGuia
                 CheckJSON[empresa]['inss']['valorDiff'] += valorDiff
             elif fgts:
-                valorDiff = abs(fgts_dominio - valorGuia)
+                valorDiff = round(abs(fgts_dominio - valorGuia), 2)
                 if abs(fgts_dominio - valorGuia) <= 0.1:
                     guiaCorreta = True
                 CheckJSON[empresa]['fgts']['guiaCorreta'] = guiaCorreta

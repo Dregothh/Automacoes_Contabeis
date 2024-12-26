@@ -1,0 +1,42 @@
+{
+    "ALVES E SANTOS LTDA": {
+        "empresa_id": "676",
+        "identificação": "19.474.935/0001-38",
+        "fgts_total": 0.0,
+        "inss_total": 1134.47,
+        "competencia": "12",
+        "emissao": "10/12/2024"
+    },
+    "GABRIEL VELHO ROSA": {
+        "empresa_id": "701",
+        "identificação": "016.851.250/001-77",
+        "fgts_total": 0.0,
+        "inss_total": 4420.24,
+        "competencia": "12",
+        "emissao": "10/12/2024"
+    },
+    "MADEIREIRA MAC EIRELE": {
+        "empresa_id": "721",
+        "identificação": "05.650.534/0001-87",
+        "fgts_total": 0.0,
+        "inss_total": 771.5,
+        "competencia": "12",
+        "emissao": "10/12/2024"
+    },
+    "MARIA DENISE MARQUES DA ROCHA VELHO": {
+        "empresa_id": "606",
+        "identificação": "334.031.980/001-15",
+        "fgts_total": 0.0,
+        "inss_total": 22010.07,
+        "competencia": "12",
+        "emissao": "10/12/2024"
+    },
+    "VANESSA GRABOWSKI DA SILVA & CIA LTDA": {
+        "empresa_id": "806",
+        "identificação": "16.860.902/0001-38",
+        "fgts_total": 0.0,
+        "inss_total": 34.59,
+        "competencia": "12",
+        "emissao": "10/12/2024"
+    }
+}
