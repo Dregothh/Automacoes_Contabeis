@@ -98,9 +98,16 @@ def processar_pdf(arquivo_pdf):
             pagina = pdf.load_page(pagina_num)
             nome_empresa = extrair_dados_empresa(pagina, dados_gerais)
 
+            def checkSaldoExists():
+                for pagina_num in range(len(pdf)):
+                    pagina = pdf.load_page(pagina_num)
+                    texto = pagina.get_text("text")
+                    if nome_empresa in texto and "Saldo à recolher:" in texto:
+                        return True
+                return False
+
             if nome_empresa:
                 texto = pagina.get_text("text")
-                print(texto)
                 linhas = texto.splitlines()
 
                 if debug:
@@ -125,7 +132,7 @@ def processar_pdf(arquivo_pdf):
                 if emissao:
                     dados_gerais[nome_empresa]['emissao'] = emissao
 
-                if total_inss == 0.0:
+                if not checkSaldoExists():
                     for i in range(1, len(linhas)):
                         if "Total INSS:" in linhas[i] and i > 0:
                             linha_anterior = linhas[i - 1]
