@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import requests
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from RPAs import waitElement
 import pandas as pd
 from selenium.webdriver.common.keys import Keys
 
@@ -16,11 +17,11 @@ pd.options.display.width = 99999
 df = pd.read_excel("C:/Users/nelso/Desktop/Planilhas Anthony/NFSEs HONORARIOS.xlsx")
 print(df)
 
-def waitElement(by, value):
-    var1 = WebDriverWait(driver, 5).until(
-        EC.element_to_be_clickable((by, value))
-    )
-    return var1
+# def waitElement(driver, by, value):
+#     var1 = WebDriverWait(driver, 5).until(
+#         EC.element_to_be_clickable((by, value))
+#     )
+#     return var1
 
 
 driver = webdriver.Chrome()
@@ -34,7 +35,7 @@ loginBox.send_keys("80349358087")
 passBox.send_keys("36681950")
 submitButton.click()
 
-# waitElement(By.XPATH, "//tr[td[contains(text(), 'GLOBAL SERVIÇOS DE ENGENHARIA LTDA')]]//td[button]")
+# waitElement(driver, By.XPATH, "//tr[td[contains(text(), 'GLOBAL SERVIÇOS DE ENGENHARIA LTDA')]]//td[button]")
 # # Find the row containing the text 'NELSON PEREIRA BRAZ' and select the button within that row
 # button = driver.find_element(By.XPATH, "//tr[td[contains(text(), 'GLOBAL SERVIÇOS DE ENGENHARIA LTDA')]]//td[button]")
 # button.click()
@@ -44,7 +45,7 @@ submitButton.click()
 
 while True:
     # Wait for the next page button to be clickable
-    next_button = waitElement(By.XPATH, "//a[@title='Vai para página seguinte']")
+    next_button = waitElement(driver, By.XPATH, "//a[@title='Vai para página seguinte']")
 
     # Check if the desired button is on the current page
     try:
@@ -56,12 +57,12 @@ while True:
     except:
         # If the button is not found, click the next page button to go to the next page
         next_button.click()
-        waitElement(By.XPATH, '//*[@id="grid"]/div[2]/table')
+        waitElement(driver, By.XPATH, '//*[@id="grid"]/div[2]/table')
         sleep(1)  # Wait a moment for the next page to load
 
 date = '26122024'
 aliquote = '2,0100000000'
-dateBox = waitElement(By.NAME, "DataCompetencia")
+dateBox = waitElement(driver, By.NAME, "DataCompetencia")
 dateBox.clear()
 dateBox.send_keys(date)
 
@@ -70,11 +71,11 @@ for _, row in df.iterrows():
 
     while True:
         try:
-            documentBox = waitElement(By.NAME, 'DocumentoTomador')
+            documentBox = waitElement(driver, By.NAME, 'DocumentoTomador')
             documentBox.send_keys(f'{row[1]}')
             documentBox.send_keys(Keys.TAB)
             sleep(3)
-            closePopup = waitElement(By.CSS_SELECTOR, '#Janela-Modal > div > button.Botao.Botao-Fechar-Modal')
+            closePopup = waitElement(driver, By.CSS_SELECTOR, '#Janela-Modal > div > button.Botao.Botao-Fechar-Modal')
             closePopup.click()
             break
         except:
@@ -84,23 +85,23 @@ for _, row in df.iterrows():
             sleep(2)
 
 
-    serviceBox = waitElement(By.ID, 'Servico')
+    serviceBox = waitElement(driver, By.ID, 'Servico')
     serviceBox.send_keys('17.19')
 
-    valueBox = waitElement(By.ID, 'ValorServico')
+    valueBox = waitElement(driver, By.ID, 'ValorServico')
     valueBox.send_keys(f'{row[2]}')
 
-    descriptionBox = waitElement(By.ID, 'DescricaoServico')
+    descriptionBox = waitElement(driver, By.ID, 'DescricaoServico')
     descriptionBox.send_keys(f'{row[3]}')
 
-    # aliquoteBox = waitElement(By.ID, 'ServicoViewModel_Aliquota')
+    # aliquoteBox = waitElement(driver, By.ID, 'ServicoViewModel_Aliquota')
     # aliquoteBox.send_keys(aliquote)
     # descriptionBox.click()
 
-    submitNFSe = waitElement(By.ID, 'gerarNotaFim')
+    submitNFSe = waitElement(driver, By.ID, 'gerarNotaFim')
     submitNFSe.click()
 
-    download = waitElement(By.ID, 'DownloadPDF')
+    download = waitElement(driver, By.ID, 'DownloadPDF')
     download.click()
     sleep(1)
 
